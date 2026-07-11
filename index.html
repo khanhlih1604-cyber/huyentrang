@@ -513,7 +513,7 @@
     'tainghe.png'
   ];
   const layer = document.getElementById('sticker-layer');
-  const stickers = [];
+  const stickers = []; // Giữ nguyên tên mảng chuẩn ban đầu
   const pageHeightPx = Math.max(document.documentElement.scrollHeight, window.innerHeight * 4);
   const pageHeightVh = (pageHeightPx / window.innerHeight) * 100;
   const cols = 5;
@@ -528,8 +528,8 @@
   for(let i=0;i<Count;i++){
     const cell = cells[i];
     const el = document.createElement('div');
-    el.className = 'float-';
-    const src = Images[i % Images.length];
+    el.className = 'float-sticker'; // ĐÃ SỬA: Thêm chữ sticker để ăn CSS
+    const src = stickerImages[i % stickerImages.length]; // ĐÃ SỬA: Đổi từ Images thành stickerImages
     const img = document.createElement('img');
     img.src = src;
     img.alt = '';
@@ -538,7 +538,10 @@
     // jitter within the cell, keeping margin from cell edges so items stay spread apart
     const left = cell.c * cellW + cellW * 0.22 + Math.random() * cellW * 0.56;
     const top = cell.r * cellH + cellH * 0.22 + Math.random() * cellH * 0.56;
-    const size = 32 + Math.random()*34;
+    
+    // ĐÃ SỬA: Tăng kích thước sticker to hơn một chút (từ 60px đến 95px)
+    const size = 60 + Math.random()*35; 
+    
     el.style.left = left + 'vw';
     el.style.top = top + 'vh';
     el.style.width = size + 'px';
@@ -547,11 +550,11 @@
     el.style.animationDuration = (4 + Math.random()*3) + 's';
     el.style.opacity = 0.85 + Math.random()*0.15;
     layer.appendChild(el);
-    s.push({ el, speed: 0.05 + Math.random()*0.15 });
+    stickers.push({ el, speed: 0.05 + Math.random()*0.15 }); // ĐÃ SỬA: Đổi từ s.push thành stickers.push
   }
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    s.forEach(s => {
+    stickers.forEach(s => { // ĐÃ SỬA: Đổi từ s.forEach thành stickers.forEach
       s.el.style.transform = `translateY(${-y * s.speed}px)`;
     });
   }, { passive: true });
