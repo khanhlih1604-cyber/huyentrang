@@ -524,12 +524,12 @@
   for(let r=0;r<rows;r++){ for(let c=0;c<cols;c++){ cells.push({ c, r }); } }
   // shuffle cells so image order doesn't repeat in a visible pattern
   for(let i=cells.length-1;i>0;i--){ const j=Math.floor(Math.random()*(i+1)); [cells[i],cells[j]]=[cells[j],cells[i]]; }
-  const stickerCount = Math.min(cells.length, Math.round(rows * 1.6));
-  for(let i=0;i<stickerCount;i++){
+  const Count = Math.min(cells.length, Math.round(rows * 1.6));
+  for(let i=0;i<Count;i++){
     const cell = cells[i];
     const el = document.createElement('div');
-    el.className = 'float-sticker';
-    const src = stickerImages[i % stickerImages.length];
+    el.className = 'float-';
+    const src = Images[i % Images.length];
     const img = document.createElement('img');
     img.src = src;
     img.alt = '';
@@ -547,11 +547,11 @@
     el.style.animationDuration = (4 + Math.random()*3) + 's';
     el.style.opacity = 0.85 + Math.random()*0.15;
     layer.appendChild(el);
-    stickers.push({ el, speed: 0.05 + Math.random()*0.15 });
+    s.push({ el, speed: 0.05 + Math.random()*0.15 });
   }
   window.addEventListener('scroll', () => {
     const y = window.scrollY;
-    stickers.forEach(s => {
+    s.forEach(s => {
       s.el.style.transform = `translateY(${-y * s.speed}px)`;
     });
   }, { passive: true });
